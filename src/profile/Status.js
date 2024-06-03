@@ -33,7 +33,7 @@ const Status = () => {
     const navigate = useNavigate();
 
     const handleStatusClick = () => {
-        navigate('/dashboard');
+        navigate('/dashboard-copy');
     }
 
     const handlePrintClick = () => {

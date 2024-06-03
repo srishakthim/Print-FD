@@ -1,22 +1,54 @@
-import React, { useState } from 'react';
-import { Avatar, Button, Container, FormControl, IconButton, InputAdornment, Link, TextField, Typography } from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { makeStyles } from '@material-ui/core/styles';
-import images3 from "../assets/logo.png"
-import images4 from "../assets/images.jpg"
+import React, { useState } from "react";
+import {
+  Avatar,
+  Button,
+  Container,
+  FormControl,
+  FormControlLabel,
+  Checkbox,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Link,
+  TextField,
+  Typography,
+} from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import PersonIcon from "@mui/icons-material/Person";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { makeStyles } from "@material-ui/core/styles";
+import images3 from "../assets/logo.png";
+import images4 from "../assets/images.jpg";
+import "../index.css";
+import Axios from '../Axios';
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 
 const useStyles = makeStyles((theme) => ({
+  fontSmall: {
+    color: "#000000 !important",
+    fontSize: "12px",
+  },
+  text: {
+    paddingRight: "0px !important",
+    backgroundColor: "#CDCDCD !important",
+  },
+  avatarStyle: {
+    backgroundColor: "#ABABAB !important",
+    width: "55px !important",
+    height: "55px !important",
+    borderRadius: "0px",
+  },
   container: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Add a slight white overlay to improve text readability
+    marginTop: theme.spacing(15),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#fff", // Add a slight white overlay to improve text readability
     padding: theme.spacing(4),
     borderRadius: theme.spacing(1),
-    
+
     // backgroundImage:`url(${images4})`,
     // backgroundSize: 'cover', // Ensure the image covers the container
     // backgroundPosition: 'center',
@@ -26,35 +58,42 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%',
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 2),
+    backgroundColor: "#616161 !important",
+    color: "#fff",
+    fontSize: "18px",
+    textTransform: "capitalize",
   },
   img: {
-    width: '50px',
-    height: '50px',
+    width: "50px",
+    height: "50px",
     marginBottom: theme.spacing(1),
   },
   logo: {
-    position: 'absolute',
-    top: theme.spacing(5),
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
+    position: "absolute",
+    top: theme.spacing(2),
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
     zIndex: 1,
   },
 }));
 
-function SignIn() {
+function Signin() {
   const classes = useStyles();
-  const [username, setUsername] = useState('');
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [responsemessage, setResponseMessage] = useState('');
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -69,40 +108,72 @@ function SignIn() {
     event.preventDefault();
   };
 
-  const handleSubmit = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    // handle sign-in logic
+
+    try {
+      console.log("Attempting to login with:", { email, password });
+
+      const response = await Axios.post("/user/usersignin", {
+        email: email,
+        password: password,
+      });
+
+      console.log("API Response:", response);
+      if (response?.status === 200) {
+        localStorage.setItem("token", response?.data?.Token);
+        localStorage.setItem("userId", response?.data?.id);
+        alert('User login successfully.');
+        navigate("/status"); 
+      } else {
+        setResponseMessage("Invalid response from server. Please try again later.");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      if (error.response) {
+        if (error.response.status === 401) {
+          setResponseMessage("Invalid email or password. Please try again.");
+        } else {
+          setResponseMessage(`Error: ${error.response.statusText}`);
+        }
+      } else if (error.request) {
+        setResponseMessage("No response from server. Please try again later.");
+      } else {
+        setResponseMessage("An error occurred. Please try again later.");
+      }
+    }
   };
+;
 
   return (
     <div
-    style={{
-      backgroundImage: `url(${images4})`,
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-      height: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-    }}
-  >
-    <div className={classes.logo}>
+      style={{
+        backgroundImage: `url(${images4})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
+      }}
+    >
+     <div className={classes.logo}>
         <img src={images3} alt="Custom Icon" className={classes.img} style={{display:"flex", justifyContent:"center", height:"130px",width:'140px'}}/>
         </div>
     <Container component="main" maxWidth="xs" className={classes.container}>
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <form className={classes.form} onSubmit={handleSubmit}>
+      <form className={classes.form} onSubmit={handleLogin}>
         <FormControl margin="normal" required fullWidth>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <TextField
-            id="username"
-            name="username"
-            value={username}
-            onChange={handleUsernameChange}
+            id="email"
+            name="email"
+            value={email}
+            onChange={handleEmailChange}
             variant="outlined"
             autoFocus
             InputProps={{
@@ -152,10 +223,15 @@ function SignIn() {
         >
           Sign In
         </Button>
+        <Grid item xs={12}>
+                        <Typography>
+                            Don't have an account? <RouterLink to="/signup">Signup</RouterLink>
+                        </Typography>
+                    </Grid>
       </form>
     </Container>
-  </div>
+    </div>
   );
 }
 
-export default SignIn;
+export default Signin;
