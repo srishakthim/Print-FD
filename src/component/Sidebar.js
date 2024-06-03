@@ -53,6 +53,11 @@ const Sidebar = () => {
       path: "/yoga-day",
       date: new Date(2024, 5, 21), // Month is 0-indexed, so June is 5
     },
+    {
+      text: "International Yoga Day",
+      path: "/yoga-day",
+      date: new Date(2024, 5, 25), // Month is 0-indexed, so June is 5
+    },
   ];
 
   const currentDate = new Date();

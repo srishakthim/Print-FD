@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -9,6 +9,7 @@ import {
   Paper,
   makeStyles,
 } from "@material-ui/core";
+import Axios from "../Axios";
 
 // Define some sample data
 const rows = Array.from({ length: 50 }, (_, index) => ({
@@ -30,14 +31,14 @@ const useStyles = makeStyles({
     borderRadius: "15px",
   },
   tableHeader: {
-    backgroundColor: "#014550", 
+    backgroundColor: "#014550",
     color: "#fff",
   },
   tableRow: {
-    backgroundColor: "#f5f5f5", 
+    backgroundColor: "#f5f5f5",
   },
   tableCell: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)", 
+    backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
   tableBorder: {
     borderColor: "#000",
@@ -46,6 +47,24 @@ const useStyles = makeStyles({
 
 const AllUsers = () => {
   const classes = useStyles();
+  const [userList, setuserList] = useState([]);
+
+  const getUserList = async () => {
+    await Axios.get("user/list", { headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    } })
+      .then((res) => {
+        setuserList(res?.data?.data);
+      })
+      .catch((error) => {
+        console.warn("Error in getting user list", error);
+      });
+  };
+
+  useEffect(() => {
+    getUserList();
+  }, []);
 
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
@@ -64,9 +83,9 @@ const AllUsers = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {userList?.map((row, index) => (
             <TableRow key={index}>
-              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.username}</TableCell>
               <TableCell>{row.email}</TableCell>
               <TableCell>{row.phone}</TableCell>
               <TableCell>{row.whatsapp}</TableCell>
