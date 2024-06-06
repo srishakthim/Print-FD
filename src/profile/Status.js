@@ -19,12 +19,13 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
+        
     },
     statusCard: {
-        backgroundColor: '#CDCDCD', // Set your desired color for the status card
+        backgroundColor: '#FEE2D6', // Set your desired color for the status card
     },
     printCard: {
-        backgroundColor: '#014550', // Set your desired color for the print card
+        backgroundColor: '#7f223d', // Set your desired color for the print card
     },
 }));
 
@@ -51,7 +52,7 @@ const Status = () => {
                             height={200}
                             style={{ width: 200 }}
                             image={status}
-                            title="Status Image"
+                            title="Designs Image"
                             onClick={handleStatusClick}
                         />
                     </Card>
