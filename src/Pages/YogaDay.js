@@ -126,6 +126,7 @@ const YogaDay = () => {
               padding: 3,
               flexDirection: "column",
               alignItems: "center",
+              backgroundColor: "#A6787A",
             }}
           >
             <Card
