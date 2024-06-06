@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(1, 0, 2),
-    backgroundColor: "#616161 !important",
+    backgroundColor: "#7f223d !important",
     color: "#fff",
     fontSize: "18px",
     textTransform: "capitalize",
@@ -121,10 +121,10 @@ function AdminLogin() {
 
       console.log("API Response:", response);
       if (response?.status === 200) {
-        localStorage.setItem("token", response?.data?.token);
+        localStorage.setItem("token", response?.data?.Token);
         localStorage.setItem("userId", response?.data?.id);
         alert('User login successfully.');
-        navigate("/all-users"); 
+        navigate("/side"); 
       } else {
         setResponseMessage("Invalid response from server. Please try again later.");
       }
@@ -148,7 +148,7 @@ function AdminLogin() {
   return (
     <div
       style={{
-        backgroundImage: `url(${images4})`,
+         backgroundColor:"#7f223d",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -160,7 +160,7 @@ function AdminLogin() {
       }}
     >
      <div className={classes.logo}>
-        <img src={images3} alt="Custom Icon" className={classes.img} style={{display:"flex", justifyContent:"center", height:"130px",width:'140px'}}/>
+        <img src={images3} alt="Custom Icon" className={classes.img} style={{display:"flex", justifyContent:"center", height:"150px",width:'150px'}}/>
         </div>
     <Container component="main" maxWidth="xs" className={classes.container}>
       <Typography component="h1" variant="h5">
