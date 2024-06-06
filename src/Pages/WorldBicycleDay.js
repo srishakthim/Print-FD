@@ -107,7 +107,7 @@ const WorldBicycleDay = () => {
         {`
           .yoga-section {
             padding-left: 0px;
-            padding-top: 20px;
+            padding-top: -600px;
           }
           @media (min-width: 450px) {
             .yoga-section {
@@ -126,7 +126,7 @@ const WorldBicycleDay = () => {
               padding: 3,
               flexDirection: "column",
               alignItems: "center",
-                backgroundColor: "#A6787A"
+              backgroundColor: "#A6787A",
             }}
           >
             <Card
