@@ -46,18 +46,18 @@ const Sidebar = () => {
     {
       text: "World Cycle Day",
       path: "/world-bicycle-day",
-      date: new Date(2024, 6, 18), // Month is 0-indexed, so June is 5
+      date: new Date(2024, 5, 3), // Month is 0-indexed, so June is 5
     },
     {
       text: "International Yoga Day",
       path: "/yoga-day",
-      date: new Date(2024, 6, 20), // Month is 0-indexed, so June is 5
+      date: new Date(2024, 5, 21), // Month is 0-indexed, so June is 5
     },
-    // {
-    //   text: "International Yoga Day",
-    //   path: "/yoga-day",
-    //   date: new Date(2024, 5, 25), // Month is 0-indexed, so June is 5
-    // },
+    {
+      text: "International Yoga Day",
+      path: "/yoga-day",
+      date: new Date(2024, 5, 25), // Month is 0-indexed, so June is 5
+    },
   ];
 
   const currentDate = new Date();
@@ -71,12 +71,12 @@ const Sidebar = () => {
         sx={{
           textAlign: "center",
           padding: 2,
-          backgroundColor: "#B1B1B1",
+          backgroundColor: '#7f223d',
           marginTop: "-70px",
           height: "75px",
         }}
       >
-        {/* <Typography
+        <Typography
           sx={{
             fontSize: "45px",
             fontFamily: "Roboto, sans-serif",
@@ -86,12 +86,7 @@ const Sidebar = () => {
           variant="h6"
         >
           2024
-        </Typography> */}
-        <img
-            src={image3}
-            alt="Logo"
-            style={{ height: 50, marginRight: "auto" }}
-          />
+        </Typography>
       </Box>
       <Divider />
       <Typography variant="h6" sx={{ padding: 2, color: "black" }}>
@@ -108,9 +103,9 @@ const Sidebar = () => {
               padding: 2,
               backgroundImage:
                 activeItem === index
-                  ? "linear-gradient(to right, #487981 0%, #081517 100%)"
+                  ? "linear-gradient(to right, #7f223d0%, #081517 100%)"
                   : "inherit",
-              color: activeItem === index ? "white" : "#487981",
+              color: activeItem === index ? "white" : '#7f223d',
               fontSize: "100px",
               fontFamily: "Roboto, sans-serif",
             }}
@@ -135,7 +130,7 @@ const Sidebar = () => {
 
       <Divider />
       <Typography variant="h6" sx={{ padding: 2, color: "black" }}>
-        Other Quotes
+        Past Festivals
       </Typography>
       <List sx={{ maxHeight: "calc(100vh - 400px)", overflowY: "auto" }}>
         {pastItems.map((item, index) => (
@@ -182,14 +177,14 @@ const Sidebar = () => {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", backgroundColor: '#7f223d', }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          backgroundColor: "#B1B1B1",
+          backgroundColor: '#7f223d',
         }}
       >
         <Toolbar>
@@ -204,7 +199,11 @@ const Sidebar = () => {
               <MenuIcon />
             </IconButton>
           )}
-         
+          <img
+            src={image3}
+            alt="Logo"
+            style={{ height: 50, marginRight: "auto" }}
+          />
           <Button
             color="inherit"
             endIcon={<LogoutIcon />}
@@ -258,7 +257,7 @@ const Sidebar = () => {
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        sx={{ flexGrow: 1, bgcolor: "#A6787A", p: 3 }} 
       >
         <Toolbar />
         {/* Your main content goes here */}
