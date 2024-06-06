@@ -29,6 +29,8 @@ import yohaImage8 from "../assets/yoha day 008.jpg";
 import yohaImage9 from "../assets/yoha day 009.jpg";
 import yohaImage10 from "../assets/yoha day 010.jpg";
 import Status from "../assets/ststus advertisment.png";
+import html2canvas from 'html2canvas';
+
 
 const WorldBicycleDay = () => {
   const [mainImage, setMainImage] = useState(cycleImage);
@@ -73,6 +75,25 @@ const WorldBicycleDay = () => {
       setSliderIndex(sliderIndex - 1);
     }
   };
+  const downloadImage = async () => {
+    const canvas = await html2canvas(document.getElementById('combined-image'));
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'combined-image.png';
+    link.click();
+  };
+  const shareOnWhatsApp = async () => {
+    const canvas = await html2canvas(document.getElementById('combined-image'));
+    const imageUrl = canvas.toDataURL('image/png');
+    const blob = await (await fetch(imageUrl)).blob();
+    const url = URL.createObjectURL(blob);
+
+    const message = `Check out this image: ${url}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+  };
+
 
   const smallImages = [
     cycleImage1,
@@ -129,20 +150,31 @@ const WorldBicycleDay = () => {
               backgroundColor: "#A6787A",
             }}
           >
-            <Card
+             <Card
+              id="combined-image"
               sx={{
-                width: { xs: "100%", sm: 300 },
+                width: { xs: '100%', sm: 300 },
                 height: { xs: 300, sm: 550 },
-                marginTop: "-20px",
-                position: "relative",
+                marginTop: '-20px',
+                position: 'relative',
               }}
             >
               <CardMedia
                 component="img"
-                alt="cycle"
+                alt="pongal"
                 image={mainImage}
-                title="Diwali"
-                sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                title="yoha"
+                sx={{
+                  width: '100%',
+                  height: {
+                    xs: 300,
+                    sm: 400,
+                    md: 500,
+                    lg: 550,
+                    xl: 600,
+                  },
+                  objectFit: 'cover',
+                }}
               />
               <CardMedia
                 component="img"
@@ -150,11 +182,11 @@ const WorldBicycleDay = () => {
                 image={Status}
                 title="Kantha Jewellers"
                 sx={{
-                  width: "100%",
-                  height: "75%",
-                  objectFit: "contain",
-                  position: "absolute",
-                  bottom: 0,
+                  width: '100%',
+                  height: '75%',
+                  objectFit: 'contain',
+                  position: 'absolute',
+                  bottom: -5,
                 }}
               />
             </Card>
@@ -165,10 +197,10 @@ const WorldBicycleDay = () => {
                 width: { xs: "100%", sm: 300 },
               }}
             >
-              <IconButton sx={{ color: "black" }} aria-label="download">
+             <IconButton sx={{ color: 'black' }} aria-label="download" onClick={downloadImage}>
                 <DownloadIcon />
               </IconButton>
-              <IconButton sx={{ color: "green" }} aria-label="share">
+              <IconButton sx={{ color: 'green' }} aria-label="share" onClick={shareOnWhatsApp}>
                 <WhatsAppIcon />
               </IconButton>
             </CardContent>
