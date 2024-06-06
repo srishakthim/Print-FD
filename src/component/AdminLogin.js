@@ -121,10 +121,10 @@ function AdminLogin() {
 
       console.log("API Response:", response);
       if (response?.status === 200) {
-        localStorage.setItem("token", response?.data?.Token);
+        localStorage.setItem("token", response?.data?.token);
         localStorage.setItem("userId", response?.data?.id);
         alert('User login successfully.');
-        navigate("/side"); 
+        navigate("/all-users"); 
       } else {
         setResponseMessage("Invalid response from server. Please try again later.");
       }

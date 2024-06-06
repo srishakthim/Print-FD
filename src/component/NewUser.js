@@ -210,7 +210,7 @@ function NewUser() {
         localStorage.setItem("token", response?.data?.Token);
         localStorage.setItem("userId", response?.data?.id);
         alert("User created successfully.");
-        // navigate("/side");
+        navigate("/all-users");
       } else {
         setResponseMessage(
           "Invalid response from server. Please try again later."

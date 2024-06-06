@@ -50,7 +50,7 @@ const AllUsers = () => {
   const [userList, setuserList] = useState([]);
 
   const getUserList = async () => {
-    await Axios.get("user/list", { headers: {
+    await Axios.get("/user/list", { headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     } })

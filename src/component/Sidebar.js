@@ -46,18 +46,18 @@ const Sidebar = () => {
     {
       text: "World Cycle Day",
       path: "/world-bicycle-day",
-      date: new Date(2024, 5, 3), // Month is 0-indexed, so June is 5
+      date: new Date(2024, 6, 18), // Month is 0-indexed, so June is 5
     },
     {
       text: "International Yoga Day",
       path: "/yoga-day",
-      date: new Date(2024, 5, 21), // Month is 0-indexed, so June is 5
+      date: new Date(2024, 6, 20), // Month is 0-indexed, so June is 5
     },
-    {
-      text: "International Yoga Day",
-      path: "/yoga-day",
-      date: new Date(2024, 5, 25), // Month is 0-indexed, so June is 5
-    },
+    // {
+    //   text: "International Yoga Day",
+    //   path: "/yoga-day",
+    //   date: new Date(2024, 5, 25), // Month is 0-indexed, so June is 5
+    // },
   ];
 
   const currentDate = new Date();
@@ -76,7 +76,7 @@ const Sidebar = () => {
           height: "75px",
         }}
       >
-        <Typography
+        {/* <Typography
           sx={{
             fontSize: "45px",
             fontFamily: "Roboto, sans-serif",
@@ -86,7 +86,12 @@ const Sidebar = () => {
           variant="h6"
         >
           2024
-        </Typography>
+        </Typography> */}
+        <img
+            src={image3}
+            alt="Logo"
+            style={{ height: 50, marginRight: "auto" }}
+          />
       </Box>
       <Divider />
       <Typography variant="h6" sx={{ padding: 2, color: "black" }}>
@@ -130,7 +135,7 @@ const Sidebar = () => {
 
       <Divider />
       <Typography variant="h6" sx={{ padding: 2, color: "black" }}>
-        Past Festivals
+        Other Quotes
       </Typography>
       <List sx={{ maxHeight: "calc(100vh - 400px)", overflowY: "auto" }}>
         {pastItems.map((item, index) => (
@@ -199,11 +204,7 @@ const Sidebar = () => {
               <MenuIcon />
             </IconButton>
           )}
-          <img
-            src={image3}
-            alt="Logo"
-            style={{ height: 50, marginRight: "auto" }}
-          />
+         
           <Button
             color="inherit"
             endIcon={<LogoutIcon />}
