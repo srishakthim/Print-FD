@@ -45,12 +45,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "#fff", // Add a slight white overlay to improve text readability
+    backgroundColor: "#fff", 
     padding: theme.spacing(4),
     borderRadius: theme.spacing(1),
-
     // backgroundImage:`url(${images4})`,
-    // backgroundSize: 'cover', // Ensure the image covers the container
+    // backgroundSize: 'cover', 
     // backgroundPosition: 'center',
   },
   avatar: {
@@ -223,11 +222,11 @@ function AdminLogin() {
         >
           Sign In
         </Button>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
                         <Typography>
                             Don't have an account? <RouterLink to="/signup">Signup</RouterLink>
                         </Typography>
-                    </Grid>
+                    </Grid> */}
       </form>
     </Container>
     </div>

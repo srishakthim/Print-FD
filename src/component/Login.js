@@ -224,11 +224,11 @@ function Signin() {
         >
           Sign In
         </Button>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
                         <Typography>
                             Don't have an account? <RouterLink to="/signup">Signup</RouterLink>
                         </Typography>
-                    </Grid>
+                    </Grid> */}
       </form>
     </Container>
     </div>
