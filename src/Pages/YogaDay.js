@@ -281,6 +281,7 @@ import yohaImage9 from "../assets/yoha day 009.jpg";
 import yohaImage10 from "../assets/yoha day 010.jpg";
 import Status from "../assets/ststus advertisment.png";
 import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas';
 
 const YogaDay = () => {
   const [mainImage, setMainImage] = useState(cycleImage);
@@ -294,6 +295,8 @@ const YogaDay = () => {
 
   useEffect(() => {
     handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -310,6 +313,7 @@ const YogaDay = () => {
     scroller.scrollTo(section, {
       duration: 800,
       delay: 0,
+      smooth: 'easeInOutQuart',
       smooth: 'easeInOutQuart',
     });
   };
@@ -371,6 +375,25 @@ const YogaDay = () => {
     window.open(whatsappUrl, '_blank');
   };
 
+  const downloadImage = async () => {
+    const canvas = await html2canvas(document.getElementById('combined-image'));
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL('image/png');
+    link.download = 'combined-image.png';
+    link.click();
+  };
+  const shareOnWhatsApp = async () => {
+    const canvas = await html2canvas(document.getElementById('combined-image'));
+    const imageUrl = canvas.toDataURL('image/png');
+    const blob = await (await fetch(imageUrl)).blob();
+    const url = URL.createObjectURL(blob);
+
+    const message = `Check out this image: ${url}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <>
       <Sidebar />
@@ -378,6 +401,7 @@ const YogaDay = () => {
         {`
           .yoga-section {
             padding-left: 0px;
+            padding-top:-600px;
             padding-top:-600px;
           }
           @media (min-width: 450px) {
@@ -394,7 +418,12 @@ const YogaDay = () => {
             sx={{
               display: 'flex',
               justifyContent: 'center',
+              display: 'flex',
+              justifyContent: 'center',
               padding: 3,
+              flexDirection: 'column',
+              alignItems: 'center',
+              backgroundColor: '#A6787A',
               flexDirection: 'column',
               alignItems: 'center',
               backgroundColor: '#A6787A',
@@ -402,9 +431,13 @@ const YogaDay = () => {
           >
             <Card
               id="combined-image"
+              id="combined-image"
               sx={{
                 width: { xs: '100%', sm: 300 },
+                width: { xs: '100%', sm: 300 },
                 height: { xs: 300, sm: 550 },
+                marginTop: '-20px',
+                position: 'relative',
                 marginTop: '-20px',
                 position: 'relative',
               }}
@@ -416,6 +449,7 @@ const YogaDay = () => {
                 title="yoha"
                 sx={{
                   width: '100%',
+                  width: '100%',
                   height: {
                     xs: 300,
                     sm: 400,
@@ -423,6 +457,7 @@ const YogaDay = () => {
                     lg: 550,
                     xl: 600,
                   },
+                  objectFit: 'cover',
                   objectFit: 'cover',
                 }}
               />
@@ -436,6 +471,10 @@ const YogaDay = () => {
                   height: '75%',
                   objectFit: 'contain',
                   position: 'absolute',
+                  width: '100%',
+                  height: '75%',
+                  objectFit: 'contain',
+                  position: 'absolute',
                   bottom: -5,
                 }}
               />
@@ -445,17 +484,26 @@ const YogaDay = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: { xs: '100%', sm: 300 },
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: { xs: '100%', sm: 300 },
               }}
             >
               <IconButton sx={{ color: 'black' }} aria-label="download" onClick={downloadImage}>
+              <IconButton sx={{ color: 'black' }} aria-label="download" onClick={downloadImage}>
                 <DownloadIcon />
               </IconButton>
+              <IconButton sx={{ color: 'green' }} aria-label="share" onClick={shareOnWhatsApp}>
               <IconButton sx={{ color: 'green' }} aria-label="share" onClick={shareOnWhatsApp}>
                 <WhatsAppIcon />
               </IconButton>
             </CardContent>
             <Box
               sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -476,6 +524,10 @@ const YogaDay = () => {
                   overflow: 'hidden',
                   width: '80%',
                   justifyContent: 'center',
+                  display: 'flex',
+                  overflow: 'hidden',
+                  width: '80%',
+                  justifyContent: 'center',
                 }}
               >
                 {smallImages2
@@ -488,6 +540,7 @@ const YogaDay = () => {
                         height: 250,
                         margin: 1,
                         cursor: 'pointer',
+                        cursor: 'pointer',
                       }}
                     >
                       <CardMedia
@@ -496,6 +549,9 @@ const YogaDay = () => {
                         image={smallImage2}
                         title={`small-images-${index2}`}
                         sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
                           width: '100%',
                           height: '100%',
                           objectFit: 'cover',
